@@ -1,0 +1,98 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Register</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand col-12 col-md-2" href="{%url 'main:my_index' %}">Test App</a>
+            <a class="nav-link  col-12 col-md-8" href="{%url 'main:my_index' %}">Home</a>
+            <a class="nav-link active" href="{%url 'main:my_signin' %}">Sign In</a>
+        </nav>
+
+
+        {% if messages %}
+        <div id="errors">
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if "reg error" in message.tags %}
+                    <li  class="text-danger">
+                    {{ message }}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form action="{%url 'main:my_create_user' %}" method="post">
+
+            {% csrf_token %}
+
+            <div class="form-group row">
+                <label for="first_name" class="col-sm-2 col-form-label">First Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="first_name" placeholder="Enter your first name">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="last_name" class="col-sm-2 col-form-label">Last Name:</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" name="last_name" placeholder="Enter your last name">
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="email" class="col-sm-2 col-form-label">Email address:</label>
+                <div class="col-sm-10">
+                    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email">
+                    <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="password" class="col-sm-2 col-form-label">Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="password" aria-describedby="pwdHelp" placeholder="Choose a password">
+                    <small id="pwdHelp" class="form-text text-muted">Passwords must be at least 8 characters long.</small>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label for="confirm_password" class="col-sm-2 col-form-label">Confirm Password:</label>
+                <div class="col-sm-10">
+                    <input type="password" class="form-control" name="confirm_password" aria-describedby="confpwdHelp" placeholder="Enter your password again">
+                    <small id="confpwdHelp" class="form-text text-muted">Confirm your password by entering it again. It must match what you entered for Password.</small>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-success">Register</button>
+
+        </form>
+        <a class="btn btn-primary btn btn-light" href="{%url 'main:my_signin' %}">Already have an account? Sign In</a>
+
+        <hr>
+        
+        <footer>
+            <p>&copy; Kalkulations 2018</p>
+        </footer>
+    </div>
+
+<!-- Optional JavaScript for bootstrap would go here-->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+</body>
+</html>

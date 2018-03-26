@@ -1,0 +1,74 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Sign In Page</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand col-12 col-md-2" href="{%url 'main:my_index' %}">Test App</a>
+            <a class="nav-link  col-12 col-md-8" href="{%url 'main:my_index' %}">Home</a>
+            <a class="nav-link active" href="{%url 'main:my_signin' %}">Sign In</a>
+        </nav>
+
+
+        {% if messages %}
+        <div id="errors">
+            <ul class="messages">
+                {% for message in messages %}
+                    {% if "login error" in message.tags %}
+                    <li  class="text-danger">
+                    {{ message }}
+                    </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+
+        <form action="{%url 'main:my_login' %}" method="post">
+
+        {% csrf_token %}
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email address:</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" name="email"  placeholder="Enter your email">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label for="password" class="col-sm-2 col-form-label">Password:</label>
+            <div class="col-sm-10">
+                <input type="password" class="form-control" name="password" placeholder="Enter your password">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-success">Sign In</button>
+    </form>
+
+    <a class="btn btn-primary btn btn-light" href="{%url 'main:my_register' %}">Don't have an account? Register</a>
+
+        <hr>
+        
+        <footer>
+            <p>&copy; Kalkulations 2018</p>
+        </footer>
+    </div>
+
+<!-- Optional JavaScript for bootstrap would go here-->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+
+</body>
+</html>

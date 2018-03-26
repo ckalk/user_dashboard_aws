@@ -1,0 +1,127 @@
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  
+    <!-- Bootstrap CSS -->
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <title>Edit User</title>
+</head>
+
+<body>
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand col-12 col-md-2" href="{%url 'main:my_index' %}">Test App</a>
+            <a class="nav-link active col-12 col-md-2" 
+            {% if request.session.user_level == 9 %}href="{%url 'dashboard:my_admin_dashboard' %}"{% endif %}
+            {% if request.session.user_level == 1 %}href="{%url 'dashboard:my_dashboard' %}"{% endif %}
+            >Dashboard</a>
+            <a class="nav-link col-12 col-md-6" href="{%url 'users:my_edit' id=request.session.id %}">Profile</a>
+            <a class="nav-link" href="{%url 'main:my_logoff' %}">Log Off</a>
+        </nav>
+
+
+        <h1 class="ml-3">Edit User Profile {{ user.id }}</h1>
+
+        {% if messages %}
+            <div id="errors">
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li class="text-danger">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+        
+        <div class="row">
+
+            <div class="card col-md-6">
+                <h3 class="card-header primary-color white-text">Edit Information</h3>
+                <div class="card-body">
+                    <form action="{% url 'users:my_update' id=user.id %}" method="post">
+
+                        {% csrf_token %}
+                            
+                        <div class="form-group">
+                            <label for="email">Email address</label>
+                            <input type="email" class="form-control" name="email" value={{ user.email}}>
+                        </div>
+                            
+                        <div class="form-group">
+                            <label for="first_name">First Name</label>
+                            <input type="text" class="form-control" name="first_name" value={{ user.first_name}}>
+                        </div>
+                            
+                        <div class="form-group">
+                            <label for="last_name">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" value={{ user.last_name}}>
+                        </div>
+                            
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="card col-md-6">
+                <h3 class="card-header primary-color white-text">Change Password</h3>
+                <div class="card-body">
+                    <form action="{% url 'users:my_update' id=user.id %}" method="post">
+        
+                        {% csrf_token %}
+                                
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" class="form-control" name="password" >
+                        </div>
+                                
+                        <div class="form-group">
+                            <label for="confirm_password">Password Confirmation</label>
+                            <input type="password" class="form-control" name="confirm_password">
+                        </div>
+                                
+                        <button type="submit" class="btn btn-primary">Update Password</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        {% if request.session.id == user.id %}
+        <div class="card col-md-12">
+            <h3 class="card-header primary-color white-text">Edit Description</h3>
+            <div class="card-body">
+                <form action="{% url 'users:my_update' id=user.id %}" method="post">
+    
+                    {% csrf_token %}
+                            
+                    <div class="form-group">
+                        <label for="description">Description</label>
+                        <input type="textarea" maxlength=255 class="form-control" name="description" value="{{ user.description }}">
+                    </div>
+                            
+                    <button type="submit" class="btn btn-primary">Save</button>
+                </form>
+            </div>
+        </div>
+        {% endif %}
+
+        <hr>
+        
+        <footer>
+            <p>&copy; Kalkulations 2018</p>
+        </footer>
+    </div>
+
+<!-- Optional JavaScript for bootstrap would go here-->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</body>
+</html>
